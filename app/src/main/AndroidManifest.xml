@@ -12,10 +12,10 @@
         android:theme="@style/Theme.BioAddMed"
         tools:targetApi="31" >
         <activity
-            android:name=".ui.home.Login"
+            android:name=".ui.home.LogInActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.Register"
+            android:name=".ui.home.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

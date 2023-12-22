@@ -8,23 +8,23 @@
 
     <Button
         android:id="@+id/Register"
-        android:layout_width="131dp"
-        android:layout_height="119dp"
+        android:layout_width="297dp"
+        android:layout_height="107dp"
         android:text="Register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.214"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.747" />
 
     <Button
         android:id="@+id/Login"
-        android:layout_width="131dp"
-        android:layout_height="119dp"
+        android:layout_width="301dp"
+        android:layout_height="105dp"
         android:text="Login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.821"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.559" />
 </androidx.constraintlayout.widget.ConstraintLayout>

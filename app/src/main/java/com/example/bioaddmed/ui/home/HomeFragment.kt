@@ -12,7 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.bioaddmed.R
 
 import com.example.bioaddmed.databinding.FragmentHomeBinding
-import com.example.myapplication.LogInActivity
+import com.example.bioaddmed.ui.home.LogInActivity
+import com.example.bioaddmed.ui.home.RegisterActivity
 
 class HomeFragment : Fragment() {
     val intent = Intent()
@@ -36,7 +37,7 @@ class HomeFragment : Fragment() {
 
         val registerButton: Button = binding.Register
         registerButton.setOnClickListener {
-            val intent = Intent(requireContext(), Register::class.java)
+            val intent = Intent(requireContext(), RegisterActivity::class.java)
             startActivity(intent)
         }
         val login = binding.Login

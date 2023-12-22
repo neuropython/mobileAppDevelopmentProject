@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.bioaddmed.ui.home
 
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
@@ -9,7 +9,6 @@ import android.content.Intent
 import android.util.Log
 import com.example.bioaddmed.R
 import com.example.bioaddmed.ui.dashboard.DashboardFragment
-import com.example.bioaddmed.ui.home.HomeFragment
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
