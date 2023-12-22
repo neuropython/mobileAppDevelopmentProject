@@ -8,8 +8,8 @@
 
     <Button
         android:id="@+id/Register"
-        android:layout_width="297dp"
-        android:layout_height="107dp"
+        android:layout_width="307dp"
+        android:layout_height="102dp"
         android:text="Register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
