@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.bioaddmed.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:name="com.example.bioaddmed.ui.calendar.CalendarFragment"
+        android:label="@string/calendar"
+        tools:layout="@layout/fragment_calendar" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.bioaddmed.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:name="com.example.bioaddmed.ui.article.ArticleFragment"
+        android:label="@string/article"
+        tools:layout="@layout/fragment_article" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.bioaddmed.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:name="com.example.bioaddmed.ui.projects.ProjectsFragment"
+        android:label="@string/projects"
+        tools:layout="@layout/fragment_projects" />
 </navigation>
