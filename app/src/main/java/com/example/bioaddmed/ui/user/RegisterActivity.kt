@@ -1,4 +1,4 @@
-package com.example.bioaddmed.ui.home
+package com.example.bioaddmed.ui.user
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +19,6 @@ import com.google.firebase.ktx.Firebase
 //import edit text
 import android.widget.EditText
 import com.example.bioaddmed.R
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.FirebaseDatabase
 import java.util.regex.Pattern
 
@@ -37,11 +36,7 @@ class RegisterActivity : AppCompatActivity() {
 
 //        write a function that enables a button if the switch is checked
         switch.setOnClickListener {
-            if (switch.isChecked) {
-                register.isEnabled = true
-            } else {
-                register.isEnabled = false
-            }
+            register.isEnabled = switch.isChecked
         }
 
 //

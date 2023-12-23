@@ -1,4 +1,4 @@
-package com.example.bioaddmed.ui.home
+package com.example.bioaddmed.ui.user
 
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
