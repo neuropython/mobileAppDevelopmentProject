@@ -18,7 +18,10 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 //import edit text
 import android.widget.EditText
+import android.widget.Toast
 import com.example.bioaddmed.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import java.util.regex.Pattern
 
@@ -27,6 +30,7 @@ import java.util.regex.Pattern
 class RegisterActivity : AppCompatActivity() {
 
     @SuppressLint("UseSwitchCompatOrMaterialCode", "RestrictedApi", "MissingInflatedId")
+    private lateinit var auth: FirebaseAuth;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
@@ -48,6 +52,7 @@ class RegisterActivity : AppCompatActivity() {
         val name = findViewById<EditText>(R.id.editTextText)
         val phone = findViewById<EditText>(R.id.editTextPhone)
         val password = findViewById<EditText>(R.id.editTextTextPassword2)
+        auth = Firebase.auth
 
         val DatabaseReference: DatabaseReference = Firebase.database.reference
         val userId = DatabaseReference.push().key.toString()
@@ -122,8 +127,27 @@ class RegisterActivity : AppCompatActivity() {
 
                 else -> {
                     val email_to_db = email_text.replace(".", ",")
-                    val user = User(name_text, email_text, phone_text, password_text)
-                    databaseReference.child("user").child(email_to_db).setValue(user)
+                    auth.createUserWithEmailAndPassword(email_text, password_text)
+                        .addOnCompleteListener(this) { task ->
+                            if (task.isSuccessful) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Toast.makeText(
+                                    baseContext,
+                                    "Authentication Successful.",
+                                    Toast.LENGTH_SHORT,
+                                ).show()
+                                val user = auth.currentUser
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Toast.makeText(
+                                    baseContext,
+                                    "Authentication failed.",
+                                    Toast.LENGTH_SHORT,
+                                ).show()
+                            }
+                        }
+                    val user = User(name_text, email_text, phone_text)
+                    databaseReference.child("user").child(name_text).setValue(user)
                     val intent = Intent(this, LogInActivity::class.java)
                     startActivity(intent)
 
@@ -136,11 +160,11 @@ class RegisterActivity : AppCompatActivity() {
         val name: String?,
         val email: String?,
         val phone: String?,
-        val password: String?
     ) {
-        // Default constructor required for Firebase
-        constructor() : this("", "", "", "")
-    }
+        constructor() : this("", "", "")
 
-}
+    }    }
+        // Default constructor required for Firebase
+
+
 
