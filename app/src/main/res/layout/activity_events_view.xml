@@ -6,20 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".ui.calendar.EventsView">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="407dp"
-        android:layout_height="547dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="1dp"
-
-        tools:ignore="MissingConstraints" />
-
     <Button
         android:id="@+id/button4"
         android:layout_width="373dp"
         android:layout_height="168dp"
         android:text="Add event"
-        tools:layout_editor_absoluteX="20dp"
-        tools:layout_editor_absoluteY="548dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.578"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="282dp"
+        android:layout_height="35dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.732" />
 </androidx.constraintlayout.widget.ConstraintLayout>

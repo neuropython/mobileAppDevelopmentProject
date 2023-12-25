@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.bioaddmed.databinding.FragmentCalendarBinding
+import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -25,6 +26,8 @@ class CalendarFragment : Fragment() {
     private var clickCounter = 0
     private lateinit var selectedDate: Date
     private val handler = Handler()
+    private val DataBaseReference = FirebaseDatabase.getInstance().getReference("Events")
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
