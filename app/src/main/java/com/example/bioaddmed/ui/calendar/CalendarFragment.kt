@@ -66,6 +66,9 @@ class CalendarFragment : Fragment() {
 
                 // Show the formatted date in the TextView
                 selectedDateTextView.text = "Selected Date: $formattedDate"
+                intent = Intent(activity, EventsView::class.java)
+                intent.putExtra("date", formattedDate)
+                startActivity(intent)
 
 
                 // Reset the counter
