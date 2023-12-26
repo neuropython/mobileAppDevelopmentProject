@@ -8,46 +8,45 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.bioaddmed.R
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-
 
 
 class EventsView : AppCompatActivity() {
 
     private var button4: Button? = null
     private var intent: Intent? = null
-    private val DatabaseReference: DatabaseReference? = null
+    private val DatabaseReference = FirebaseDatabase.getInstance().getReference("Calendar")
+
 
 
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_events_view)
-        intent = Intent(this, SelectedDayActivity::class.java)
-        val receivedIntent = intent
+        val receivedIntent = getIntent()
         val receivedDate = receivedIntent?.getStringExtra("date")
-        val DatabaseReference = FirebaseDatabase.getInstance().getReference("Calendar")
+        Log.d("YourTag", "Received Date in EventsView: $receivedDate")
+
         DatabaseReference.child(receivedDate.toString()).get().addOnSuccessListener {
             val event = it.value?.toString()
-            if (event == "null") {
+            if (event == null || event.isEmpty()) {
                 val eventTextView = findViewById<TextView>(R.id.textView2)
                 eventTextView.text = "No events"
-            } else {val eventTextView = findViewById<TextView>(R.id.textView2)
-                Log.d("YourTag", "Current Date and Time: $event")
-                eventTextView.text = event}
+            } else {
+                val eventTextView = findViewById<TextView>(R.id.textView2)
+                eventTextView.text = event
+            }
         }.addOnFailureListener {
             val eventTextView = findViewById<TextView>(R.id.textView2)
             eventTextView.text = "Error"
         }
 
 
-
-
         button4 = findViewById(R.id.button4)
 
         button4?.setOnClickListener {
             val intent = Intent(this, SelectedDayActivity::class.java)
+            intent.putExtra("date", receivedDate)
             startActivity(intent)
             finish()
         }

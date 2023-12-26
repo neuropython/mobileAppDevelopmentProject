@@ -3,6 +3,7 @@ package com.example.bioaddmed.ui.calendar
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,11 +65,12 @@ class CalendarFragment : Fragment() {
                 }.time
 
                 // Format the selected date (you can change the format as needed)
-                val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-                val formattedDate = dateFormat.format(selectedDate)
+                val dateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
+                val formattedDate = dateFormat.format(selectedDate).toString()
+                Log.d("YourTag", "Formatted Date in CalendarFragment: $formattedDate")
+
 
                 // Show the formatted date in the TextView
-                selectedDateTextView.text = "Selected Date: $formattedDate"
                 intent = Intent(activity, EventsView::class.java)
                 intent.putExtra("date", formattedDate)
                 startActivity(intent)
