@@ -8,11 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import com.example.bioaddmed.databinding.FragmentCalendarBinding
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -27,7 +30,12 @@ class CalendarFragment : Fragment() {
     private var clickCounter = 0
     private lateinit var selectedDate: Date
     private val handler = Handler()
-    private val DataBaseReference = FirebaseDatabase.getInstance().getReference("Events")
+    private lateinit var RecyclerView : RecyclerView
+    private lateinit var newArrayLst : ArrayList<EventsWithoutDesc>
+    private lateinit var date : MutableList<String>
+    private lateinit var name : MutableList<String>
+    private lateinit var time : MutableList<String>
+
 
 
     override fun onCreateView(
@@ -37,13 +45,14 @@ class CalendarFragment : Fragment() {
     ): View {
         val calendarViewModel =
             ViewModelProvider(this).get(CalendarViewModel::class.java)
+        getFromFirebase()
 
         _binding = FragmentCalendarBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         // Get references to views
         val calendarView: CalendarView = binding.calendarView
-        val selectedDateTextView: TextView = binding.selectedDateTextView
+        val recyclerView: RecyclerView = binding.recyclerView
 
         // Set up the OnDateChangeListener
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
@@ -91,5 +100,84 @@ class CalendarFragment : Fragment() {
 
     companion object {
         private const val DOUBLE_CLICK_INTERVAL = 500 // Time in milliseconds
+    }
+}
+fun getFromFirebase() {
+    val databaseReference = FirebaseDatabase.getInstance().getReference("Calendar")
+
+
+    val currentDate = getCurrentDate()
+    val currentYear = SimpleDateFormat("yyyy", Locale.US).format(currentDate)
+    val currentMonth = SimpleDateFormat("MM", Locale.US).format(currentDate)
+
+    databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            val yearData = dataSnapshot.child(currentYear).value as? Map<String, Any>
+
+            if (yearData == null || yearData.isEmpty()) {
+                Log.d("Firebase1", "No events for the current year")
+            } else {
+                val monthData = yearData[currentMonth] as? Map<String, Any>
+                if (monthData == null || monthData.isEmpty()) {
+                    Log.d("Firebase2", "No events for the current month")
+                } else {
+                    val calendar = Calendar.getInstance()
+                    calendar.time = currentDate
+                    val currentDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
+                    val startDayOfWeek = calendar.firstDayOfWeek
+
+                    // Calculate the difference between the current day and the start of the week
+                    val daysUntilStartOfWeek = (currentDayOfWeek - startDayOfWeek + 7) % 7
+
+                    // Calculate the start date of the week
+                    calendar.add(Calendar.DAY_OF_YEAR, -daysUntilStartOfWeek)
+                    val startOfWeek = calendar.time
+
+                    // Calculate the end date of the week (7 days from the start)
+                    calendar.add(Calendar.DAY_OF_YEAR, 6)
+                    val endOfWeek = calendar.time
+                    var dayKeyInt = SimpleDateFormat("dd", Locale.US).format(startOfWeek).toInt()
+                    val enddayKeyInt = SimpleDateFormat("dd", Locale.US).format(endOfWeek).toInt()
+                    var dayKey = SimpleDateFormat("dd", Locale.US).format(startOfWeek).toInt()
+                    // Loop through the days of the week and log events
+                    while (dayKeyInt <= enddayKeyInt) {
+                        var dupa = dayKeyInt.toString()
+                        if (dupa.length == 1) {
+                            dupa = "0$dayKeyInt"
+                        }
+                        for (i in monthData) {
+                            Log.d("AAA", "dupa: $dupa")
+                            if (i.key == dupa) {
+                                Log.d("Firebase3", "dupa: $dupa")
+                                Log.d("Firebase3", "i.value: ${i.value}")
+                            }
+                        }
+                        dayKeyInt += 1
+                        calendar.add(Calendar.DAY_OF_YEAR, 1)
+                    }
+                }
+            }
+        }
+
+        override fun onCancelled(databaseError: DatabaseError) {
+            Log.e("Firebase", "Error getting data", databaseError.toException())
+        }
+    })
+}
+
+private fun getCurrentDate(): Date {
+    return Calendar.getInstance().time
+}
+
+private fun processEventsForDay(day: Date, dayData: Map<String, Any>) {
+    Log.d("Firebase", "Events for ${SimpleDateFormat("yyyy/MM/dd", Locale.US).format(day)}:")
+    for ((eventId, eventData) in dayData) {
+        // Assuming the event structure in your database
+        val eventName = (eventData as Map<String, Any>)["eventName"] as? String
+        val eventTime = (eventData as Map<String, Any>)["eventTime"] as? String
+        val eventDescription = (eventData as Map<String, Any>)["eventDescription"] as? String
+
+        // Log the event information
+        Log.d("Firebase", "Event Name: $eventName, Event Time: $eventTime, Event Description: $eventDescription")
     }
 }
