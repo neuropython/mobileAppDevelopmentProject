@@ -11,15 +11,20 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.bioaddmed.MainActivity
 import com.example.bioaddmed.R
+import com.example.bioaddmed.ui.admin.AdminActivity
 import com.example.bioaddmed.ui.article.ArticleFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 
 class LogInActivity : AppCompatActivity() {
     @SuppressLint("WrongViewCast", "MissingInflatedId")
     private lateinit var auth: FirebaseAuth
+    val DatabaseReference: DatabaseReference = Firebase.database.reference
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +54,7 @@ class LogInActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         val user = auth.currentUser
+                        check_if_admin(emailText)
                         intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                         finish()
@@ -72,4 +78,17 @@ class LogInActivity : AppCompatActivity() {
 
         }
 
+    private fun check_if_admin(emailText: String) {
+        val email_to_db = emailText.replace(".", ",")
+        val databaseReference = Firebase.database.reference
+        val admin = databaseReference.child("Admin").child(email_to_db)
+        admin.get().addOnSuccessListener {
+            if (it.exists()) {
+                val intent = Intent(this, AdminActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
     }
+
+}

@@ -8,7 +8,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.bioaddmed.R
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 class SelectedDayActivity : AppCompatActivity() {
@@ -25,7 +24,6 @@ class SelectedDayActivity : AppCompatActivity() {
         val eventTime = findViewById<EditText>(R.id.eventTime)
         val submitButton = findViewById<Button>(R.id.submit)
         val eventAuthor = findViewById<EditText>(R.id.userName)
-        val DatabaseReference: DatabaseReference? = null
 
         submitButton.setOnClickListener() {
             val eventNameText = eventName.text.toString()
@@ -35,12 +33,15 @@ class SelectedDayActivity : AppCompatActivity() {
             val event = Event(eventDescriptionText, eventTimeText,eventNameText, eventAuthor)
             if (eventNameText.isEmpty() || eventDescriptionText.isEmpty()
                 || eventTimeText.isEmpty() || eventAuthor.isEmpty()) {
-                var toast = Toast.makeText(this, "Please fill all fields",
+                val toast = Toast.makeText(this, "Please fill all fields",
                     Toast.LENGTH_SHORT)
                 toast?.show()
-            } else {val DatabaseReference =
-                FirebaseDatabase.getInstance().getReference("Calendar")
-                DatabaseReference.child(receivedDate.toString()).child(eventNameText).
+            if (!isTimeFormatValid(eventTimeText)) {
+                val toast = Toast.makeText(this, "Invalid time format",
+                    Toast.LENGTH_SHORT)
+                toast?.show()
+            } else { val databaseReference = FirebaseDatabase.getInstance().getReference("Calendar")
+                databaseReference.child(receivedDate.toString()).child(eventNameText).
                 setValue(event)
 
                 var toast = Toast
@@ -60,4 +61,16 @@ class Event(
     val eventAuthor: String,
 ) {
     constructor() : this("", "", "", "")
+}
+
+fun isTimeFormatValid(timeInput: String): Boolean {
+    val timeRegex = Regex("""^\d{1,2}-\d{1,2}$""")
+
+    if (timeRegex.matches(timeInput)) {
+        val (startHour, endHour) = timeInput.split("-").map { it.toInt() }
+        return startHour < endHour
+    }
+
+    return false
+}
 }
