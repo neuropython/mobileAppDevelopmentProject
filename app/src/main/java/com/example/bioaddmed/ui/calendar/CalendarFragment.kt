@@ -32,6 +32,7 @@ class CalendarFragment : Fragment() {
     private lateinit var selectedDate: Date
     private val handler = Handler()
     val newArrayList = mutableListOf<EventsWithoutDesc>()
+    val allEventsList = mutableListOf<EventsWithoutDesc>()
 
 
 
@@ -46,21 +47,19 @@ class CalendarFragment : Fragment() {
 
         _binding = FragmentCalendarBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        Log.d("Damian", "newArrayLst: $newArrayList")
-
-        val newArrayLst = getFromFirebase { eventList ->
-            Log.d("Damian", "eventList: $eventList")
-            newArrayList.addAll(eventList)
-            Log.d("Damian", "newArrayLst: $newArrayList")
-        }
-
-        // Get references to views
-        val calendarView: CalendarView = binding.calendarView
         val recyclerView: RecyclerView = binding.recyclerView
         recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = CalendarFragmentAdapter(newArrayList)
 
+        getFromFirebase { eventList ->
+            newArrayList.clear() // Clear existing data
+            newArrayList.addAll(eventList)
+            recyclerView.adapter?.notifyDataSetChanged() // Update the adapter
+        }
+
+        // Get references to views
+        val calendarView: CalendarView = binding.calendarView
 
         // Set up the OnDateChangeListener
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
