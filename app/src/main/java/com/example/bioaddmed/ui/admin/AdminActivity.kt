@@ -15,7 +15,7 @@ class AdminActivity : AppCompatActivity() {
         setContentView(R.layout.admin_activity)
         val adminButton = findViewById<Button>(R.id.adminButton)
         adminButton.setOnClickListener() {
-            val intent = Intent(this, AdminActivity::class.java)
+            val intent = Intent(this, AddProject::class.java)
             startActivity(intent)
         }
         val calendarButton = findViewById<Button>(R.id.calendarButton)
