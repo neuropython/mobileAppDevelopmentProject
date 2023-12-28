@@ -1,5 +1,6 @@
 package com.example.bioaddmed.ui.calendar
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -111,6 +112,7 @@ fun getFromFirebase() {
     val currentMonth = SimpleDateFormat("MM", Locale.US).format(currentDate)
 
     databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+        @SuppressLint("SoonBlockedPrivateApi")
         override fun onDataChange(dataSnapshot: DataSnapshot) {
             val yearData = dataSnapshot.child(currentYear).value as? Map<String, Any>
 
@@ -145,17 +147,48 @@ fun getFromFirebase() {
                         if (dupa.length == 1) {
                             dupa = "0$dayKeyInt"
                         }
+                        Log.d("Firebase3", "Events for $dupa:")
                         for ((key, value) in monthData) {
                             if (key.trim().equals(dupa, ignoreCase = true)) {
-                                Log.d("Firebase3", "${value::class.java}:")
+                                Log.d("Firebase3", "${value::class.java}")
+
                                 if (value is ArrayList<*>) {
                                     for (innerValue in value) {
                                         if (innerValue is Map<*, *>) {
                                             val eventName = innerValue["eventName"] as? String
                                             val eventTime = innerValue["eventTime"] as? String
-                                            val eventDescription = innerValue["eventDescription"] as? String
-                                            Log.d("Firebase4", "Event Name: $eventName, Event Time: $eventTime, Event Description: $eventDescription")
+                                            Log.d("Damian", "Event Name: $eventName, Event Time: $eventTime")
                                         } }
+                                }
+                                if (value is Map<*, *>) {
+                                    for (innerValue in value) {
+                                        for (innerValue in value) {
+                                            try {
+                                                val nodeClass = Class.forName("java.util.HashMap\$Node")
+                                                val fields = nodeClass.declaredFields
+
+                                                for (field in fields) {
+                                                    field.isAccessible = true
+                                                    val fieldName = field.name
+                                                    val fieldValue = field.get(innerValue)
+
+                                                    when (fieldName) {
+                                                        "value" -> {
+                                                            val eventMap = fieldValue as? Map<*, *>
+                                                            val eventName = eventMap?.get("eventName") as? String
+                                                            val eventTime = eventMap?.get("eventTime") as? String
+
+                                                            Log.d("Damian", "Event Name: $eventName, Event Time: $eventTime")
+                                                        }
+                                                        // Add more cases as needed for other fields
+                                                    }
+                                                }
+                                            } catch (e: Exception) {
+                                                Log.e("Damian", "Error accessing HashMap\$Node properties: ${e.message}")
+                                            }
+                                        }
+                                    }
+
                                 }
                             }
                         }
@@ -172,19 +205,7 @@ fun getFromFirebase() {
     })
 }
 
+
 private fun getCurrentDate(): Date {
     return Calendar.getInstance().time
-}
-
-private fun processEventsForDay(day: Date, dayData: Map<String, Any>) {
-    Log.d("Firebase", "Events for ${SimpleDateFormat("yyyy/MM/dd", Locale.US).format(day)}:")
-    for ((eventId, eventData) in dayData) {
-        // Assuming the event structure in your database
-        val eventName = (eventData as Map<String, Any>)["eventName"] as? String
-        val eventTime = (eventData as Map<String, Any>)["eventTime"] as? String
-        val eventDescription = (eventData as Map<String, Any>)["eventDescription"] as? String
-
-        // Log the event information
-        Log.d("Firebase", "Event Name: $eventName, Event Time: $eventTime, Event Description: $eventDescription")
-    }
 }

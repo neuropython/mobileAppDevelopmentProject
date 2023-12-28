@@ -31,7 +31,7 @@ class SelectedDayActivity : AppCompatActivity() {
             val eventNameText = eventName.text.toString()
             val eventDescriptionText = eventDescription.text.toString()
             val eventTimeText = eventTime.text.toString()
-            val eventAuthor = "User"
+            val eventAuthor = eventAuthor.text.toString()
             val event = Event(eventDescriptionText, eventTimeText,eventNameText, eventAuthor)
             if (eventNameText.isEmpty() || eventDescriptionText.isEmpty()
                 || eventTimeText.isEmpty() || eventAuthor.isEmpty()) {
