@@ -145,11 +145,18 @@ fun getFromFirebase() {
                         if (dupa.length == 1) {
                             dupa = "0$dayKeyInt"
                         }
-                        for (i in monthData) {
-                            Log.d("AAA", "dupa: $dupa")
-                            if (i.key == dupa) {
-                                Log.d("Firebase3", "dupa: $dupa")
-                                Log.d("Firebase3", "i.value: ${i.value}")
+                        for ((key, value) in monthData) {
+                            if (key.trim().equals(dupa, ignoreCase = true)) {
+                                Log.d("Firebase3", "${value::class.java}:")
+                                if (value is ArrayList<*>) {
+                                    for (innerValue in value) {
+                                        if (innerValue is Map<*, *>) {
+                                            val eventName = innerValue["eventName"] as? String
+                                            val eventTime = innerValue["eventTime"] as? String
+                                            val eventDescription = innerValue["eventDescription"] as? String
+                                            Log.d("Firebase4", "Event Name: $eventName, Event Time: $eventTime, Event Description: $eventDescription")
+                                        } }
+                                }
                             }
                         }
                         dayKeyInt += 1
