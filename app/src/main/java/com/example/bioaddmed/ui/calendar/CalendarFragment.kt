@@ -31,11 +31,8 @@ class CalendarFragment : Fragment() {
     private var clickCounter = 0
     private lateinit var selectedDate: Date
     private val handler = Handler()
-    private lateinit var RecyclerView : RecyclerView
-    private lateinit var newArrayLst : ArrayList<EventsWithoutDesc>
-    private lateinit var date : MutableList<String>
-    private lateinit var name : MutableList<String>
-    private lateinit var time : MutableList<String>
+    val newArrayList = mutableListOf<EventsWithoutDesc>()
+
 
 
 
@@ -46,14 +43,24 @@ class CalendarFragment : Fragment() {
     ): View {
         val calendarViewModel =
             ViewModelProvider(this).get(CalendarViewModel::class.java)
-        getFromFirebase()
 
         _binding = FragmentCalendarBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        Log.d("Damian", "newArrayLst: $newArrayList")
+
+        val newArrayLst = getFromFirebase { eventList ->
+            Log.d("Damian", "eventList: $eventList")
+            newArrayList.addAll(eventList)
+            Log.d("Damian", "newArrayLst: $newArrayList")
+        }
 
         // Get references to views
         val calendarView: CalendarView = binding.calendarView
         val recyclerView: RecyclerView = binding.recyclerView
+        recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.adapter = CalendarFragmentAdapter(newArrayList)
+
 
         // Set up the OnDateChangeListener
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
@@ -77,8 +84,6 @@ class CalendarFragment : Fragment() {
                 // Format the selected date (you can change the format as needed)
                 val dateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
                 val formattedDate = dateFormat.format(selectedDate).toString()
-                Log.d("YourTag", "Formatted Date in CalendarFragment: $formattedDate")
-
 
                 // Show the formatted date in the TextView
                 intent = Intent(activity, EventsView::class.java)
@@ -103,20 +108,21 @@ class CalendarFragment : Fragment() {
         private const val DOUBLE_CLICK_INTERVAL = 500 // Time in milliseconds
     }
 }
-fun getFromFirebase() {
+fun getFromFirebase(callback: (List<EventsWithoutDesc>) -> Unit) {
     val databaseReference = FirebaseDatabase.getInstance().getReference("Calendar")
-
-
+    val eventList = mutableListOf<EventsWithoutDesc>()
     val currentDate = getCurrentDate()
     val currentYear = SimpleDateFormat("yyyy", Locale.US).format(currentDate)
     val currentMonth = SimpleDateFormat("MM", Locale.US).format(currentDate)
+
 
     databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
         @SuppressLint("SoonBlockedPrivateApi")
         override fun onDataChange(dataSnapshot: DataSnapshot) {
             val yearData = dataSnapshot.child(currentYear).value as? Map<String, Any>
 
-            if (yearData == null || yearData.isEmpty()) {
+
+            if (yearData.isNullOrEmpty()) {
                 Log.d("Firebase1", "No events for the current year")
             } else {
                 val monthData = yearData[currentMonth] as? Map<String, Any>
@@ -140,30 +146,33 @@ fun getFromFirebase() {
                     val endOfWeek = calendar.time
                     var dayKeyInt = SimpleDateFormat("dd", Locale.US).format(startOfWeek).toInt()
                     val enddayKeyInt = SimpleDateFormat("dd", Locale.US).format(endOfWeek).toInt()
-                    var dayKey = SimpleDateFormat("dd", Locale.US).format(startOfWeek).toInt()
                     // Loop through the days of the week and log events
                     while (dayKeyInt <= enddayKeyInt) {
-                        var dupa = dayKeyInt.toString()
-                        if (dupa.length == 1) {
-                            dupa = "0$dayKeyInt"
+                        var dayToCheck = dayKeyInt.toString()
+                        if (dayToCheck.length == 1) {
+                            dayToCheck = "0$dayKeyInt"
                         }
-                        Log.d("Firebase3", "Events for $dupa:")
                         for ((key, value) in monthData) {
-                            if (key.trim().equals(dupa, ignoreCase = true)) {
-                                Log.d("Firebase3", "${value::class.java}")
-
+                            if (key.trim().equals(dayToCheck, ignoreCase = true)) {
                                 if (value is ArrayList<*>) {
                                     for (innerValue in value) {
                                         if (innerValue is Map<*, *>) {
                                             val eventName = innerValue["eventName"] as? String
                                             val eventTime = innerValue["eventTime"] as? String
-                                            Log.d("Damian", "Event Name: $eventName, Event Time: $eventTime")
+                                            val eventDate = dayKeyInt
+                                            addToRecyclerView(eventName, eventTime, eventDate)?.let {
+                                                eventList.add(
+                                                    it
+                                                )
+                                            }
+
                                         } }
                                 }
                                 if (value is Map<*, *>) {
                                     for (innerValue in value) {
                                         for (innerValue in value) {
                                             try {
+                                                val eventDictionary: MutableMap<String, Map<String, String>> = mutableMapOf()
                                                 val nodeClass = Class.forName("java.util.HashMap\$Node")
                                                 val fields = nodeClass.declaredFields
 
@@ -171,20 +180,25 @@ fun getFromFirebase() {
                                                     field.isAccessible = true
                                                     val fieldName = field.name
                                                     val fieldValue = field.get(innerValue)
-
                                                     when (fieldName) {
                                                         "value" -> {
                                                             val eventMap = fieldValue as? Map<*, *>
                                                             val eventName = eventMap?.get("eventName") as? String
                                                             val eventTime = eventMap?.get("eventTime") as? String
+                                                            val eventDate = dayKeyInt
 
-                                                            Log.d("Damian", "Event Name: $eventName, Event Time: $eventTime")
+                                                            addToRecyclerView(eventName, eventTime, eventDate)?.let {
+                                                                eventList.add(
+                                                                    it
+                                                                )
+                                                            }
+
                                                         }
                                                         // Add more cases as needed for other fields
                                                     }
                                                 }
                                             } catch (e: Exception) {
-                                                Log.e("Damian", "Error accessing HashMap\$Node properties: ${e.message}")
+                                                Log.e("Error", "Error accessing HashMap\$Node properties: ${e.message}")
                                             }
                                         }
                                     }
@@ -197,15 +211,23 @@ fun getFromFirebase() {
                     }
                 }
             }
+            callback(eventList)
         }
+
 
         override fun onCancelled(databaseError: DatabaseError) {
             Log.e("Firebase", "Error getting data", databaseError.toException())
+            callback(emptyList())
         }
     })
+
 }
 
+private fun addToRecyclerView(eventName: String?, eventTime: String?, eventDate: Int): EventsWithoutDesc? {
+    val event = eventTime?.let { EventsWithoutDesc(eventName, it, eventDate.toString()) }
+    return event
 
+}
 private fun getCurrentDate(): Date {
     return Calendar.getInstance().time
 }

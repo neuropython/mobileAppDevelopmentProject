@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bioaddmed.R
 
-class CalendarFragmentAdapter(private val eventsList: ArrayList<EventsWithoutDesc>)
+class CalendarFragmentAdapter(private val eventsList: MutableList<EventsWithoutDesc>)
     : RecyclerView.Adapter<CalendarFragmentAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
