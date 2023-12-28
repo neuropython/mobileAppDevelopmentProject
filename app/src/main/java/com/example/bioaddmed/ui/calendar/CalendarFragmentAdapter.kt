@@ -22,11 +22,13 @@ class CalendarFragmentAdapter(private val eventsList: ArrayList<EventsWithoutDes
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentEvent = eventsList[position]
+        holder.summary.text = currentEvent.name
+        holder.time.text = currentEvent.startTime
         holder.date.text = currentEvent.date
-        holder.summary.text = currentEvent.summary
     }
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val date = itemView.findViewById<TextView>(R.id.date)
         val summary = itemView.findViewById<TextView>(R.id.summary)
+        val time = itemView.findViewById<TextView>(R.id.time)
     }
 }

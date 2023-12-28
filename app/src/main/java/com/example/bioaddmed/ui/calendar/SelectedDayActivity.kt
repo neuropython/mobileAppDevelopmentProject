@@ -22,24 +22,29 @@ class SelectedDayActivity : AppCompatActivity() {
         val calendarView = findViewById<CalendarView>(R.id.calendarView)
         val eventName = findViewById<EditText>(R.id.eventName)
         val eventDescription = findViewById<EditText>(R.id.eventDescryption)
-        val eventDate = findViewById<EditText>(R.id.eventDate)
         val eventTime = findViewById<EditText>(R.id.eventTime)
         val submitButton = findViewById<Button>(R.id.submit)
+        val eventAuthor = findViewById<EditText>(R.id.userName)
         val DatabaseReference: DatabaseReference? = null
 
         submitButton.setOnClickListener() {
             val eventNameText = eventName.text.toString()
             val eventDescriptionText = eventDescription.text.toString()
-            val eventDateText = eventDate.text.toString()
             val eventTimeText = eventTime.text.toString()
-            val event = Event(eventDescriptionText, eventDateText, eventTimeText)
-            if (eventNameText.isEmpty() || eventDescriptionText.isEmpty() || eventDateText.isEmpty() || eventTimeText.isEmpty()) {
-                var toast = Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT)
+            val eventAuthor = "User"
+            val event = Event(eventDescriptionText, eventTimeText,eventNameText, eventAuthor)
+            if (eventNameText.isEmpty() || eventDescriptionText.isEmpty()
+                || eventTimeText.isEmpty() || eventAuthor.isEmpty()) {
+                var toast = Toast.makeText(this, "Please fill all fields",
+                    Toast.LENGTH_SHORT)
                 toast?.show()
-            } else {val DatabaseReference = FirebaseDatabase.getInstance().getReference("Calendar")
-                DatabaseReference.child(receivedDate.toString()).child(eventNameText).setValue(event)
+            } else {val DatabaseReference =
+                FirebaseDatabase.getInstance().getReference("Calendar")
+                DatabaseReference.child(receivedDate.toString()).child(eventNameText).
+                setValue(event)
 
-                var toast = Toast.makeText(this, "Event added", Toast.LENGTH_SHORT)
+                var toast = Toast
+                    .makeText(this, "Event added", Toast.LENGTH_SHORT)
                 toast?.show()
             }
         }
@@ -50,8 +55,9 @@ class SelectedDayActivity : AppCompatActivity() {
 
 class Event(
     val eventDescription: String,
-    val eventDate: String,
-    val eventTime: String
+    val eventTime: String,
+    val eventName: String,
+    val eventAuthor: String,
 ) {
-    constructor() : this("", "", "")
+    constructor() : this("", "", "", "")
 }
