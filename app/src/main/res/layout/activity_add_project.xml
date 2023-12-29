@@ -11,8 +11,10 @@
         android:layout_width="373dp"
         android:layout_height="42dp"
         android:ems="10"
+        android:fontFamily="monospace"
         android:inputType="text"
-        android:text="Name"
+        android:hint="Project Name"
+        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/createProject"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +25,8 @@
         android:id="@+id/selectedUsers"
         android:layout_width="374dp"
         android:layout_height="50dp"
-        android:text="TextView"
+        android:gravity="center"
+        android:fontFamily="monospace"
         app:layout_constraintBottom_toTopOf="@+id/createProject"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.567"
@@ -37,13 +40,15 @@
         android:layout_height="333dp"
         app:layout_constraintBottom_toTopOf="@+id/selectedUsers"
         app:layout_constraintTop_toBottomOf="@+id/projectName"
-        tools:layout_editor_absoluteX="1dp" />
+        tools:layout_editor_absoluteX="1dp"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/createProject"
         android:layout_width="378dp"
         android:layout_height="181dp"
         android:text="Button"
+        android:fontFamily="monospace"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.484"

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.chip.ChipGroup xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.chip.ChipGroup
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,9 +11,13 @@
         android:id="@+id/chip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Users"
         android:layout_gravity="center"
         android:background="@color/black"
+
+        android:backgroundTint="@color/white"
+        android:fontFamily="monospace"
+        android:text="Select Users"
+        android:textColor="@color/black"
         app:layout_constraintHorizontal_bias="0.5"
         tools:ignore="MissingConstraints" />
 
