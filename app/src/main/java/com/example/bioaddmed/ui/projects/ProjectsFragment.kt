@@ -1,6 +1,7 @@
 package com.example.bioaddmed.ui.projects
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.bioaddmed.databinding.FragmentProjectsBinding
+import com.google.firebase.auth.FirebaseAuth
+
 
 class ProjectsFragment : Fragment() {
 
@@ -16,6 +19,10 @@ class ProjectsFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    var user = FirebaseAuth.getInstance().currentUser
+    val databaseReferance = com.google.firebase.database.FirebaseDatabase.getInstance().getReference("Project")
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +39,25 @@ class ProjectsFragment : Fragment() {
         notificationsViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
+        val recyclerView = binding.projectRecyclerView
+
+        databaseReferance.get().addOnSuccessListener {
+            val list = ArrayList<ProjectData>()
+            val value = it.value
+            for (i in value as HashMap<String, Any>) {
+                val name = i.key
+                val peopleList = i.value as ArrayList<String>
+                list.add(ProjectData(name, peopleList))
+                recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
+                recyclerView.setHasFixedSize(true)
+                recyclerView.adapter = ProjectAdapter(list)
+            }
+
+        } .addOnFailureListener {
+            Log.d("TAG", "onCreateView: " + it.message)
+        }
+        Log.d("TAG", "onCreateView: " + (user!!.displayName))
+
         return root
     }
 

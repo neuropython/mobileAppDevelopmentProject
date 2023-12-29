@@ -1,30 +1,29 @@
 package com.example.bioaddmed.ui.user
 
-import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-
 //import intent
-import android.content.Intent
 //import button
-import android.widget.Button
 //import switch
-import android.widget.Switch
 //import firebase
-import com.google.firebase.database.DatabaseReference
 //import child
-import com.google.firebase.database.ktx.database
 //import ktx
-import com.google.firebase.ktx.Firebase
 //import edit text
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.os.Bundle
+import android.widget.Button
 import android.widget.EditText
+import android.widget.Switch
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.bioaddmed.R
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import java.util.regex.Pattern
-
 
 
 class RegisterActivity : AppCompatActivity() {
@@ -130,13 +129,17 @@ class RegisterActivity : AppCompatActivity() {
                     auth.createUserWithEmailAndPassword(email_text, password_text)
                         .addOnCompleteListener(this) { task ->
                             if (task.isSuccessful) {
+                                val user = auth.currentUser
+                                val profileUpdates = UserProfileChangeRequest.Builder()
+                                    .setDisplayName(name_text)
+                                    .build()
+                                user?.updateProfile(profileUpdates)
                                 // Sign in success, update UI with the signed-in user's information
                                 Toast.makeText(
                                     baseContext,
                                     "Authentication Successful.",
                                     Toast.LENGTH_SHORT,
                                 ).show()
-                                val user = auth.currentUser
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Toast.makeText(
