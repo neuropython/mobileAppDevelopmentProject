@@ -50,26 +50,20 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
     implementation("com.google.firebase:firebase-database:20.3.0")
     implementation("com.google.firebase:firebase-auth:22.3.0")
-    implementation("com.google.android.material:material:1.5.0")
+    implementation("com.google.android.material:material:1.11.0")
+    implementation("com.google.firebase:firebase-messaging-ktx:23.4.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
 //    to add google calendar api
-    implementation("com.google.oauth-client:google-oauth-client-jetty:1.23.0")
-    implementation("com.google.apis:google-api-services-calendar:v3-rev305-1.23.0")
-    implementation("com.google.android.gms:play-services-auth:20.7.0")
     implementation("com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava")
-    implementation("com.google.api-client:google-api-client-android:1.23.0") {
-        exclude(group = "org.apache.httpcomponents")
-        implementation("pub.devrel:easypermissions:3.0.0")
 
-
-
-
-
+    implementation("com.google.firebase:firebase-analytics:21.5.0") {
+        exclude(group = "com.google.guava", module = "guava")
     }
 
+    implementation("com.google.guava:guava:31.1-android") // Use the specific version you want
 
-
+    implementation("pub.devrel:easypermissions:3.0.0")
 }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/app_logo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/bioaddmed_icon" />
+
+        <TextView
+            android:id="@+id/app_name"
+            android:layout_width="217dp"
+            android:layout_height="25dp"
+            android:layout_alignTop="@+id/app_logo"
+            android:layout_alignBottom="@+id/app_logo"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="25dp"
+            android:layout_toRightOf="@id/app_logo"
+            android:text="BioAddMed"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="102dp"
+            android:layout_height="21dp"
+            android:layout_alignStart="@+id/app_logo"
+            android:layout_alignTop="@+id/app_logo"
+            android:layout_alignEnd="@+id/app_name"
+            android:layout_alignBottom="@+id/app_logo"
+            android:layout_marginStart="72dp"
+            android:layout_marginLeft="-104dp"
+            android:layout_marginTop="29dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="0dp"
+            android:layout_toRightOf="@id/app_name"
+            android:text="BioAddMed"
+            android:textColor="@color/colorPrimary"
+            android:textSize="10sp" />
+    </RelativeLayout>
+</RelativeLayout>
