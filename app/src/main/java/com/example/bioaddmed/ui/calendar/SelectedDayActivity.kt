@@ -64,11 +64,10 @@ class Event(
 }
 
 fun isTimeFormatValid(timeInput: String): Boolean {
-    val timeRegex = Regex("""^\d{1,2}-\d{1,2}$""")
+    val timeRegex = Regex("""^\d{1,2}:\d{1,2}$""")
 
     if (timeRegex.matches(timeInput)) {
-        val (startHour, endHour) = timeInput.split("-").map { it.toInt() }
-        return startHour < endHour
+        return true
     }
 
     return false
