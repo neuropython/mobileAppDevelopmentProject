@@ -36,7 +36,6 @@ class SelectedDayActivity : AppCompatActivity() {
                 val toast = Toast.makeText(this, "Please fill all fields",
                     Toast.LENGTH_SHORT)
                 toast?.show()
-} else
             if (!isTimeFormatValid(eventTimeText)) {
                 val toast = Toast.makeText(this, "Invalid time format",
                     Toast.LENGTH_SHORT)
@@ -65,12 +64,13 @@ class Event(
 }
 
 fun isTimeFormatValid(timeInput: String): Boolean {
-    val timeRegex = Regex("""^\d{1,2}:\d{1,2}$""")
+    val timeRegex = Regex("""^\d{1,2}-\d{1,2}$""")
 
     if (timeRegex.matches(timeInput)) {
-        return true
+        val (startHour, endHour) = timeInput.split("-").map { it.toInt() }
+        return startHour < endHour
     }
 
     return false
 }
-
+}

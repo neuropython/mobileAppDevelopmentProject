@@ -8,10 +8,15 @@
         <!-- Secondary brand color. -->
         <item name="colorSecondary">#16FF00</item>
         <item name="colorSecondaryVariant">#16FF00</item>
-        <item name="colorOnSecondary">@color/purple_dark</item>
+        <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name= "App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="color">#FFFFFF</item>
+    </style>
+
 
 </resources>

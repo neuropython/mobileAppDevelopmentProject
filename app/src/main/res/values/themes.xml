@@ -2,16 +2,21 @@
     <!-- Base application theme. -->
     <style name="Theme.BioAddMed" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">#191500</item>
-        <item name="colorOnPrimary">@color/purple_neon</item>
+        <item name="colorOnPrimary">#191500</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/white</item>
-        <item name="colorSecondaryVariant">@color/white</item>
+        <item name="colorSecondary">#16FF00</item>
+        <item name="colorSecondaryVariant">#16FF00</item>
         <item name="colorOnSecondary">@color/purple_dark</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name= "App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="color">#FFFFFF</item>
+    </style>
+
 
 </resources>
