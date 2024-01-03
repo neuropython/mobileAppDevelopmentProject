@@ -35,6 +35,7 @@ class EventsView : AppCompatActivity() {
                 eventTextView.text = "No events"
             } else {
                 Log.d("YourTag", "Event: ${event::class.java}")
+                Log.d("YourTag", "Event: $event")
 
                 if (event is Map<*, *>) {
                     for (innerValue in event) {

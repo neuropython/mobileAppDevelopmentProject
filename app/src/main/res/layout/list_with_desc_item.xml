@@ -6,7 +6,8 @@
     <TextView
         android:id="@+id/nameView"
         android:layout_width="131dp"
-        android:layout_height="29dp"
+        android:layout_height="34dp"
+        android:layout_marginBottom="4dp"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="@id/dayView"
         app:layout_constraintEnd_toStartOf="@id/dayView"
@@ -40,9 +41,10 @@
 
     <TextView
         android:id="@+id/dayView"
-        android:layout_width="98dp"
-        android:layout_height="95dp"
+        android:layout_width="129dp"
+        android:layout_height="132dp"
         android:layout_marginTop="16dp"
+        android:textStyle="bold"
         android:background="@drawable/bigger_circle_shape"
         android:fontFamily="monospace"
         android:gravity="center"
