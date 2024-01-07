@@ -2,6 +2,7 @@ package com.example.bioaddmed.ui.calendar
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.CalendarView
 import android.widget.EditText
@@ -30,27 +31,25 @@ class SelectedDayActivity : AppCompatActivity() {
             val eventDescriptionText = eventDescription.text.toString()
             val eventTimeText = eventTime.text.toString()
             val eventAuthor = eventAuthor.text.toString()
-            val event = Event(eventDescriptionText, eventTimeText,eventNameText, eventAuthor)
+            val event = Event(eventDescriptionText, eventTimeText, eventNameText, eventAuthor)
             if (eventNameText.isEmpty() || eventDescriptionText.isEmpty()
-                || eventTimeText.isEmpty() || eventAuthor.isEmpty()) {
-                val toast = Toast.makeText(this, "Please fill all fields",
-                    Toast.LENGTH_SHORT)
-                toast?.show()
-            if (!isTimeFormatValid(eventTimeText)) {
-                val toast = Toast.makeText(this, "Invalid time format",
-                    Toast.LENGTH_SHORT)
-                toast?.show()
-            } else { val databaseReference = FirebaseDatabase.getInstance().getReference("Calendar")
-                databaseReference.child(receivedDate.toString()).child(eventNameText).
-                setValue(event)
-
-                var toast = Toast
-                    .makeText(this, "Event added", Toast.LENGTH_SHORT)
+                || eventTimeText.isEmpty() || eventAuthor.isEmpty()
+            ) {
+                val toast = Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT)
                 toast?.show()
             }
-        }
 
-
+            if (!isTimeFormatValid(eventTimeText)) {
+                Log.d("SelectedDayActivity", "Event added")
+                val toast = Toast.makeText(this, "Invalid time format", Toast.LENGTH_SHORT)
+                toast?.show()
+            } else {
+                val databaseReference = FirebaseDatabase.getInstance().getReference("Calendar")
+                databaseReference.child(receivedDate.toString()).child(eventNameText)
+                    .setValue(event)
+                var toast = Toast.makeText(this, "Event added", Toast.LENGTH_SHORT)
+                toast?.show()
+            }
         }
     }
 
@@ -64,13 +63,6 @@ class Event(
 }
 
 fun isTimeFormatValid(timeInput: String): Boolean {
-    val timeRegex = Regex("""^\d{1,2}-\d{1,2}$""")
-
-    if (timeRegex.matches(timeInput)) {
-        val (startHour, endHour) = timeInput.split("-").map { it.toInt() }
-        return startHour < endHour
-    }
-
-    return false
+    return true
 }
 }
