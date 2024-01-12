@@ -33,12 +33,6 @@ class StartingActivity : AppCompatActivity() {
             startActivity(intent)
             finish();
         }
-        val skipButton: Button = findViewById(R.id.Skip)
-        skipButton.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish();
-        }
         val uiModeManager = getSystemService(UiModeManager::class.java)
         uiModeManager?.nightMode = UiModeManager.MODE_NIGHT_YES
     }
