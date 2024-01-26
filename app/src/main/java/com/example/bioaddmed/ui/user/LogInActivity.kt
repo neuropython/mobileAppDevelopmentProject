@@ -3,12 +3,14 @@ package com.example.bioaddmed.ui.user
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.bioaddmed.MainActivity
 import com.example.bioaddmed.R
 import com.example.bioaddmed.ui.admin.AdminActivity
@@ -26,9 +28,17 @@ class LogInActivity : AppCompatActivity() {
     val DatabaseReference: DatabaseReference = Firebase.database.reference
 
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        val constraintLayout = findViewById<ConstraintLayout>(R.id.loginLayout)
+        val animationDrawable = constraintLayout.background as AnimationDrawable
+
+        animationDrawable.setEnterFadeDuration(2000)
+        animationDrawable.setExitFadeDuration(2000)
+        animationDrawable.start()
 
         val email = findViewById<android.widget.EditText>(R.id.editTextTextEmailAddress)
         val password = findViewById<android.widget.EditText>(R.id.editTextTextPassword)
