@@ -9,12 +9,14 @@ package com.example.bioaddmed.ui.user
 //import edit text
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Switch
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.bioaddmed.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
@@ -30,9 +32,17 @@ class RegisterActivity : AppCompatActivity() {
 
     @SuppressLint("UseSwitchCompatOrMaterialCode", "RestrictedApi", "MissingInflatedId")
     private lateinit var auth: FirebaseAuth;
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+
+        val constraintLayout = findViewById<ConstraintLayout>(R.id.registerLayout)
+        val animationDrawable = constraintLayout.background as AnimationDrawable
+
+        animationDrawable.setEnterFadeDuration(2000)
+        animationDrawable.setExitFadeDuration(2000)
+        animationDrawable.start()
 
         val register = findViewById<Button>(R.id.button2)
         val switch = findViewById<Switch>(R.id.switch1)

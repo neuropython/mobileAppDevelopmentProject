@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#260C1A"
-    tools:context=".ui.user.RegisterActivity">
+    android:background="@drawable/gradient_list"
+    tools:context=".ui.user.RegisterActivity"
+    android:id="@+id/registerLayout">
 
     <Button
         android:id="@+id/button2"
         android:layout_width="161dp"
         android:layout_height="395dp"
-        android:fontFamily="monospace"
+        android:fontFamily="@font/concert_one"
+        android:textSize="24sp"
         android:text="Register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:fontFamily="monospace"
+        android:fontFamily="@font/comfortaa_light"
         android:gravity="center"
         android:hint="Name"
         android:inputType="text"
@@ -39,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:fontFamily="monospace"
+        android:fontFamily="@font/comfortaa_light"
         android:gravity="center"
         android:hint="Password"
         android:inputType="textPassword"
@@ -48,14 +50,14 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/editTextPhone"
         app:layout_constraintTop_toBottomOf="@+id/editTextPhone"
-        app:layout_constraintVertical_bias="0.076" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/editTextPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:fontFamily="monospace"
+        android:fontFamily="@font/comfortaa_light"
         android:gravity="center"
         android:hint="Phone"
         android:inputType="phone"
@@ -68,14 +70,15 @@
 
     <Switch
         android:id="@+id/switch1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="monospace"
+        android:layout_width="192dp"
+        android:layout_height="109dp"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="@font/comfortaa_light"
         android:gravity="center"
-        android:text="Używam innych danych"
+        android:text="I normally use other login variables"
         app:layout_constraintBottom_toBottomOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword2"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/editTextTextPassword2"
         tools:ignore="MissingConstraints,UseSwitchCompatOrMaterialXml" />
 
@@ -84,7 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:fontFamily="monospace"
+        android:fontFamily="@font/comfortaa_light"
         android:gravity="center"
         android:hint="Email"
         android:inputType="textEmailAddress"
