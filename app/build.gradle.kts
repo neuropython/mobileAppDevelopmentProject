@@ -66,4 +66,5 @@ dependencies {
     implementation("com.google.guava:guava:31.1-android") // Use the specific version you want
 
     implementation("pub.devrel:easypermissions:3.0.0")
+    implementation("com.rometools:rome:1.15.0")
 }

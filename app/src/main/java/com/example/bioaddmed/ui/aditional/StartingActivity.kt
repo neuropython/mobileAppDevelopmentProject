@@ -1,4 +1,4 @@
-package com.example.bioaddmed.ui
+package com.example.bioaddmed.ui.aditional
 
 import android.annotation.SuppressLint
 import android.app.UiModeManager
@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.example.bioaddmed.MainActivity
 import com.example.bioaddmed.R
 import com.example.bioaddmed.ui.user.LogInActivity
 import com.example.bioaddmed.ui.user.RegisterActivity
@@ -33,6 +32,14 @@ class StartingActivity : AppCompatActivity() {
             startActivity(intent)
             finish();
         }
+        val textView = findViewById<android.widget.TextView>(R.id.textView)
+        val httpRequest = CiteHttpRequest(CiteHttpRequest.OnTaskCompleted {
+            fun onTaskCompleted(quote: String) {
+                // Here you can use the quote
+                textView.text = quote
+            }
+        })
+        httpRequest.execute("https://api.kanye.rest/")
         val uiModeManager = getSystemService(UiModeManager::class.java)
         uiModeManager?.nightMode = UiModeManager.MODE_NIGHT_YES
     }

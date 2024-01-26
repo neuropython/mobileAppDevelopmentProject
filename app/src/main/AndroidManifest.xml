@@ -35,7 +35,7 @@
             android:name=".ui.calendar.SelectedDayActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.StartingActivity"
+            android:name=".ui.aditional.StartingActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
