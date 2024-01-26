@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#260C1A"
+    android:background="#18191E"
     android:layout_height="match_parent"
     tools:context=".ui.calendar.CalendarFragment">
 
@@ -11,7 +11,8 @@
         android:id="@+id/calendarView"
         android:layout_width="308dp"
         android:layout_height="270dp"
-        android:fontFamily="monospace"
+        android:fontFamily="@font/comfortaa_light"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"

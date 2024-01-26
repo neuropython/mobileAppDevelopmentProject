@@ -5,14 +5,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#260C1A"
-    tools:context=".ui.admin.AdminActivity">
+    android:background="@drawable/gradient_list"
+    tools:context=".ui.admin.AdminActivity"
+    android:id = "@+id/adminLayout">
 
   <Button
       android:id="@+id/adminButton"
       android:layout_width="169dp"
       android:layout_height="61dp"
-      android:fontFamily="monospace"
+      android:fontFamily="@font/comfortaa_light"
       android:text="Add project"
       app:layout_constraintBottom_toTopOf="@+id/textView4"
       app:layout_constraintEnd_toEndOf="@+id/textView4"
@@ -23,7 +24,7 @@
       android:id="@+id/calendarButton"
       android:layout_width="169dp"
       android:layout_height="61dp"
-      android:fontFamily="monospace"
+      android:fontFamily="@font/comfortaa_light"
       android:text="Calendar"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="@+id/textView4"
