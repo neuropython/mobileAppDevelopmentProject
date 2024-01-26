@@ -12,52 +12,44 @@
         android:id="@+id/Login"
         android:layout_width="267dp"
         android:layout_height="85dp"
-        android:fontFamily="monospace"
+        android:background="@drawable/button_shape"
+        android:fontFamily="@font/concert_one"
         android:text="Login"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/Register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.945" />
+        app:layout_constraintVertical_bias="0.938" />
 
     <Button
         android:id="@+id/Register"
         android:layout_width="267dp"
         android:layout_height="85dp"
-        android:fontFamily="monospace"
+        android:background="@drawable/button_shape"
+        android:fontFamily="@font/concert_one"
         android:text="Register"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.874" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="206dp"
-        android:layout_height="176dp"
-        android:background="@drawable/nav_bar_bg"
-        app:layout_constraintBottom_toTopOf="@+id/Login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.165"
-        app:srcCompat="@drawable/bioaddmed_icon" />
+        app:layout_constraintVertical_bias="0.916" />
 
     <TextView
         android:id="@+id/Quote"
+        android:layout_width="276dp"
+        android:layout_height="232dp"
+        android:background="@drawable/quote_bg"
+        android:fontFamily="@font/comfortaa_light"
         android:gravity="center"
-        android:layout_width="296dp"
-        android:layout_height="171dp"
-        android:fontFamily="@font/acme"
-        android:text="TextView"
+        android:textColor="#E9ECEF"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/Login"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:layout_constraintVertical_bias="0.491" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.51" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

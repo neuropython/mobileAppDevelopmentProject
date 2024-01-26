@@ -19,10 +19,9 @@ class StartingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_starting)
-
         val constraintLayout = findViewById<ConstraintLayout>(R.id.mainLayout)
-
         val animationDrawable = constraintLayout.background as AnimationDrawable
+
         animationDrawable.setEnterFadeDuration(2000)
         animationDrawable.setExitFadeDuration(2000)
         animationDrawable.start()
