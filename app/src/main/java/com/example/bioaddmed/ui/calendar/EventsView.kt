@@ -1,7 +1,11 @@
 package com.example.bioaddmed.ui.calendar
 
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -27,6 +31,20 @@ class EventsView : AppCompatActivity() {
         val receivedDate = receivedIntent?.getStringExtra("date")
         Log.d("YourTag", "Received Date in EventsView: $receivedDate")
         val eventList = mutableListOf<EventsWithDesc>()
+
+
+        val colorFrom = Color.RED
+        val colorTo = Color.BLUE
+
+
+        val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), colorFrom, colorTo)
+        colorAnimation.addUpdateListener { animator ->
+            button4?.backgroundTintList = ColorStateList.valueOf(animator.animatedValue as Int)
+        }
+        colorAnimation.duration = 2000
+        colorAnimation.repeatCount = ValueAnimator.INFINITE
+        colorAnimation.repeatMode = ValueAnimator.REVERSE
+        colorAnimation.start()
 
         databaseReference.child(receivedDate.toString()).get().addOnSuccessListener { dataSnapshot ->
             val event = dataSnapshot.value

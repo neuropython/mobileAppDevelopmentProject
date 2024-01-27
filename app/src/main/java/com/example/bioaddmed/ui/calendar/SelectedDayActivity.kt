@@ -1,10 +1,13 @@
 package com.example.bioaddmed.ui.calendar
 
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import android.widget.CalendarView
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -19,12 +22,23 @@ class SelectedDayActivity : AppCompatActivity() {
         val receivedIntent = getIntent()
         val receivedDate = receivedIntent?.getStringExtra("date")
 
-        val calendarView = findViewById<CalendarView>(R.id.calendarView)
         val eventName = findViewById<EditText>(R.id.eventName)
         val eventDescription = findViewById<EditText>(R.id.eventDescryption)
         val eventTime = findViewById<EditText>(R.id.eventTime)
         val submitButton = findViewById<Button>(R.id.submit)
         val eventAuthor = findViewById<EditText>(R.id.userName)
+
+        val colorFrom = Color.RED
+        val colorTo = Color.BLUE
+
+        val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), colorFrom, colorTo)
+        colorAnimation.addUpdateListener { animator ->
+            submitButton.backgroundTintList = ColorStateList.valueOf(animator.animatedValue as Int)
+        }
+        colorAnimation.duration = 2000
+        colorAnimation.repeatCount = ValueAnimator.INFINITE
+        colorAnimation.repeatMode = ValueAnimator.REVERSE
+        colorAnimation.start()
 
         submitButton.setOnClickListener() {
             val eventNameText = eventName.text.toString()
