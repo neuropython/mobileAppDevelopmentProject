@@ -66,13 +66,13 @@
         android:id="@+id/button"
         android:layout_width="269dp"
         android:layout_height="83dp"
-        android:text="LogIn"
-        android:fontFamily="@font/concert_one"
-        android:textSize="24sp"
         android:background="@drawable/button_shape"
+        android:fontFamily="@font/concert_one"
+        android:text="LogIn"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.825" />
+        app:layout_constraintVertical_bias="0.822" />
 </androidx.constraintlayout.widget.ConstraintLayout>
