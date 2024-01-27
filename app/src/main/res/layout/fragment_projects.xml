@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#260C1A"
+    android:background="#18191E"
     tools:context=".ui.projects.ProjectsFragment">
 
     <TextView
         android:id="@+id/text_notifications"
         android:layout_width="362dp"
         android:layout_height="72dp"
-        android:fontFamily="monospace"
+        android:fontFamily="@font/comfortaa_light"
         android:gravity="center"
         android:text="Projects"
         android:textSize="20sp"
