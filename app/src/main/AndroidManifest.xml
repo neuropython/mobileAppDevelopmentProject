@@ -13,7 +13,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.BioAddMed"
+        android:theme="@style/Theme.App.Starting"
         tools:targetApi="31">
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
@@ -27,19 +27,25 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity
+            android:theme="@style/Theme.BioAddMed"
             android:name=".ui.admin.AddProject"
             android:exported="false" />
         <activity
+            android:theme="@style/Theme.BioAddMed"
             android:name=".ui.admin.AdminActivity"
             android:exported="false" />
         <activity
+            android:theme="@style/Theme.BioAddMed"
             android:name=".ui.calendar.EventsView"
             android:exported="false" />
         <activity
+            android:theme="@style/Theme.BioAddMed"
             android:name=".ui.calendar.SelectedDayActivity"
             android:exported="false" />
         <activity
+
             android:name=".ui.aditional.StartingActivity"
+            android:theme="@style/Theme.App.Starting"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,12 +54,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:theme="@style/Theme.BioAddMed"
             android:name=".ui.user.LogInActivity"
             android:exported="false" />
         <activity
+            android:theme="@style/Theme.BioAddMed"
             android:name=".ui.user.RegisterActivity"
             android:exported="false" />
         <activity
+            android:theme="@style/Theme.BioAddMed"
             android:name=".MainActivity"
             android:exported="true" />
         <service

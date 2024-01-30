@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#18191E"
     android:layout_height="match_parent"
+    android:background="@drawable/rounded_corners"
     tools:context=".ui.calendar.CalendarFragment">
 
     <CalendarView
         android:id="@+id/calendarView"
-        android:layout_width="308dp"
-        android:layout_height="270dp"
+        android:layout_width="305dp"
+        android:layout_height="345dp"
         android:fontFamily="@font/comfortaa_light"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

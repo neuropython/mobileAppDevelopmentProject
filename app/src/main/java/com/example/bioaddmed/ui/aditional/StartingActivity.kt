@@ -7,8 +7,10 @@ import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.bioaddmed.R
 import com.example.bioaddmed.ui.user.LogInActivity
 import com.example.bioaddmed.ui.user.RegisterActivity
@@ -18,6 +20,16 @@ class StartingActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val viewModel: MainViewModel by viewModels()
+
+
+        installSplashScreen().apply {
+            setKeepOnScreenCondition() {
+                !viewModel.isReady.value
+            }
+        }
+
         setContentView(R.layout.activity_starting)
         val constraintLayout = findViewById<ConstraintLayout>(R.id.mainLayout)
         val animationDrawable = constraintLayout.background as AnimationDrawable

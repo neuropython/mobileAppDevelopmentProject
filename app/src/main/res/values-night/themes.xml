@@ -15,9 +15,14 @@
     </style>
 
     <style name= "App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="color">#F5F5F5</item>
+        <item name="color">#5C469C</item>
     </style>
 
 
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/animated_logo</item>
+        <item name="postSplashScreenTheme">@style/Theme.BioAddMed</item>
+    </style>
 
 </resources>
