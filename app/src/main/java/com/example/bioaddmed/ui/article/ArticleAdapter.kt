@@ -1,9 +1,14 @@
 package com.example.bioaddmed.ui.article
 
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bioaddmed.R
 
@@ -34,5 +39,22 @@ class ArticleAdapter (private val articleList : List<ArticleData>)
     }
     class MyViewHolder(itemView: android.view.View) : RecyclerView.ViewHolder(itemView) {
         val title: android.widget.Button? = itemView.findViewById(R.id.articleButton)
+    }
+    fun getRandomColor(): Int {
+        val rnd = java.util.Random()
+        return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
+    }
+    private fun animateButtonBackground(button: Button) {
+        val colorFrom = getRandomColor()
+        val colorTo = getRandomColor()
+
+        val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), colorFrom, colorTo)
+        colorAnimation.addUpdateListener { animator ->
+            button.backgroundTintList = ColorStateList.valueOf(animator.animatedValue as Int)
+        }
+        colorAnimation.duration = 2000
+        colorAnimation.repeatCount = ValueAnimator.INFINITE
+        colorAnimation.repeatMode = ValueAnimator.REVERSE
+        colorAnimation.start()
     }
 }

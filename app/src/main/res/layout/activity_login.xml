@@ -55,6 +55,7 @@
         app:layout_constraintVertical_bias="0.612">
 
         <ImageView
+            android:color = "#FFFFFF"
             android:id="@+id/imageView"
             android:layout_width="187dp"
             android:layout_height="181dp"

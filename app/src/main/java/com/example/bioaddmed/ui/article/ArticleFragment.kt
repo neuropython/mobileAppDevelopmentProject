@@ -38,7 +38,7 @@ class ArticleFragment : Fragment() {
 
         val textView: TextView = binding.textDashboard
         dashboardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+            textView.text = "Articles"
         }
         Log.d("TAG", "onCreateView: ")
         val URL = "https://bioaddmed-baza-wiedzy.onrender.com/api/articles"
