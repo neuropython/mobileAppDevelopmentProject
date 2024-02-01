@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bioaddmed.databinding.FragmentArticleBinding
 import okhttp3.Callback
 import okhttp3.OkHttpClient
@@ -33,7 +34,7 @@ class ArticleFragment : Fragment() {
         _binding = FragmentArticleBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val articleList = mutableListOf<Map<String, String>>()
+        val articleList = ArrayList<ArticleData>()
 
         val textView: TextView = binding.textDashboard
         dashboardViewModel.text.observe(viewLifecycleOwner) {
@@ -66,11 +67,17 @@ class ArticleFragment : Fragment() {
                                 val article = articles.getJSONObject(i)
                                 val title = article.getString("title")
                                 val link = article.getString("link")
-                                articleList.add(mapOf("title" to title, "link" to link))
+                                articleList.add(ArticleData(title, link))
                                 Log.d("TAG", "onResponse: " + articleList)
 
                             }
                         }
+                    }
+                    activity?.runOnUiThread {
+                    val recyclerView = binding.recyclerView2
+                    recyclerView.layoutManager = LinearLayoutManager(activity)
+                    recyclerView.setHasFixedSize(true)
+                    recyclerView.adapter = ArticleAdapter(articleList)
                     }
                 }
             }
