@@ -11,8 +11,8 @@
 
   <Button
       android:id="@+id/adminButton"
-      android:layout_width="169dp"
-      android:layout_height="61dp"
+      android:layout_width="260dp"
+      android:layout_height="76dp"
       android:fontFamily="@font/comfortaa_light"
       android:text="Add project"
       app:layout_constraintBottom_toTopOf="@+id/textView4"
@@ -22,8 +22,8 @@
 
   <Button
       android:id="@+id/calendarButton"
-      android:layout_width="169dp"
-      android:layout_height="61dp"
+      android:layout_width="267dp"
+      android:layout_height="84dp"
       android:fontFamily="@font/comfortaa_light"
       android:text="Calendar"
       app:layout_constraintBottom_toBottomOf="parent"

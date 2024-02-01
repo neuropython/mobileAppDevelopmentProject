@@ -38,8 +38,8 @@
 
     <TextView
         android:id="@+id/Quote"
-        android:layout_width="276dp"
-        android:layout_height="232dp"
+        android:layout_width="284dp"
+        android:layout_height="356dp"
         android:background="@drawable/quote_bg"
         android:fontFamily="@font/comfortaa_light"
         android:gravity="center"

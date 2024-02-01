@@ -68,4 +68,5 @@ dependencies {
     implementation("pub.devrel:easypermissions:3.0.0")
     implementation("com.rometools:rome:1.15.0")
     implementation("androidx.core:core-splashscreen:1.1.0-alpha02")
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
 }

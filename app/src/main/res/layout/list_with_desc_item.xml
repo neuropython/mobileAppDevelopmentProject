@@ -1,6 +1,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@drawable/project_shape"
     android:layout_height="wrap_content">
 
     <TextView
@@ -43,13 +44,12 @@
         android:id="@+id/dayView"
         android:layout_width="129dp"
         android:layout_height="132dp"
-        android:layout_marginTop="16dp"
-        android:textStyle="bold"
+        android:layout_marginTop="8dp"
         android:background="@drawable/bigger_circle_shape"
         android:fontFamily="monospace"
         android:gravity="center"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

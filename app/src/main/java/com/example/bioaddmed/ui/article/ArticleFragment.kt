@@ -1,6 +1,7 @@
 package com.example.bioaddmed.ui.article
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,10 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.bioaddmed.databinding.FragmentArticleBinding
-import com.example.bioaddmed.ui.aditional.CiteHttpRequest
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import org.json.JSONObject
 
 class ArticleFragment : Fragment() {
 
@@ -29,17 +33,56 @@ class ArticleFragment : Fragment() {
         _binding = FragmentArticleBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        val articleList = mutableListOf<Map<String, String>>()
+
         val textView: TextView = binding.textDashboard
         dashboardViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
-        val httpRequest = CiteHttpRequest(CiteHttpRequest.OnTaskCompleted {
-            fun onTaskCompleted(quote: String) {
-                // Here you can use the quote
-                textView.text = quote
+        Log.d("TAG", "onCreateView: ")
+        val URL = "https://bioaddmed-baza-wiedzy.onrender.com/api/articles"
+        if (URL.isNotEmpty()) {
+            Log.d("TAG", "onCreateView: " + URL)
+            val articleDataFetch = OkHttpClient()
+            val request = Request.Builder()
+                .url(URL)
+                .addHeader("Auth-Key", "B10@dDM3d1229")
+                .build()
+            articleDataFetch.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: okhttp3.Call, e: java.io.IOException) {
+                    textView.text = "Failed to fetch data!"
+                    Log.d("error", "onResponse: ")
+                }
+
+                override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
+
+                    response.use {
+                        if (!response.isSuccessful) throw java.io.IOException("Unexpected code $response")
+                        else {
+                            val body = response.body?.string()
+                            val jsonObject = JSONObject(body)
+                            val articles = jsonObject.getJSONArray("articles")
+                            for (i in 0 until articles.length()) {
+                                val article = articles.getJSONObject(i)
+                                val title = article.getString("title")
+                                val link = article.getString("link")
+                                articleList.add(mapOf("title" to title, "link" to link))
+                                Log.d("TAG", "onResponse: " + articleList)
+
+                            }
+                        }
+                    }
+                }
             }
-        })
-        httpRequest.execute("https://api.kanye.rest/")
+            )
+        }
+
+        else {
+            textView.text = "No URL"
+        }
+
+
+
         return root
     }
 }
